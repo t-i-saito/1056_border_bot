@@ -5,11 +5,11 @@ import pandas as pd
 from datetime import datetime as dt
 
 st.set_page_config(layout="wide")
-userlist = ['よこまき', 'METEOR', 'いびちゃ']
+userlist = ['よこまき', 'METEOR']
 
 user_name = st.sidebar.selectbox("ユーザー選択", userlist)
 #セレクトボックスのリストを作成
-pagelist = ["シャニPカップ","ミリシタ周年"]
+pagelist = ["シャニPカップ"]
 #サイドバーのセレクトボックスを配置
 selector=st.sidebar.radio( "コンテンツ選択",pagelist)
 if selector=="シャニPカップ":
@@ -40,12 +40,14 @@ if selector=="シャニPカップ":
         if st.button('順位設定OK'):
             for border_idol in selector_idol:
 
-                border_data = "https://api.matsurihi.me/mltd/v1/events/241/rankings/logs/idolPoint/{}/{}".format(
-                    int(idol_dir[border_idol][0]), int(border_summary[border_idol][1]))
+                # border_data = "https://api.matsurihi.me/mltd/v1/events/241/rankings/logs/idolPoint/{}/{}".format(
+                border_data="https://api.matsurihi.me/sc/v1/events/fanRanking/40009/rankings/logs/{}/{}".format(
+                        int(idol_dir[border_idol][0]), int(border_summary[border_idol][1]))
                 r = requests.get(border_data)
                 border_json_data = r.json()
                 # API実行(ユーザー)
-                user_data = "https://api.matsurihi.me/mltd/v1/events/241/rankings/logs/idolPoint/{}/{}".format(
+                # user_data = "https://api.matsurihi.me/mltd/v1/events/241/rankings/logs/idolPoint/{}/{}".format(
+                user_data = "https://api.matsurihi.me/sc/v1/events/fanRanking/40009/rankings/logs/{}/{}".format(
                     int(idol_dir[border_idol][0]), int(border_summary[border_idol][0]))
                 r2 = requests.get(user_data)
                 user_json_data = r2.json()
@@ -176,8 +178,4 @@ if selector=="シャニPカップ":
                 with open('shiny_colors_idol_dir_streamlit.json', 'w') as f:
                     json.dump(idol_dir, f)
 
-
-elif selector=="ミリシタ周年":
-    if st.button('ページ2ボタン'):
-        st.title("ページ2のタイトル")
 
