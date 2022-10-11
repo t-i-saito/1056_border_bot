@@ -163,7 +163,7 @@ if selector=="シャニPカップ":
                     df2.at['前回検索から今までの平均時速', '各値'] = format(int(user_average_hour), ',')
                     df2.at['前回検索から今までの' + border_summary[border_idol][1] + '位ボーダーの平均時速', '各値'] = format(int(border_average_hour), ',')
                     df2.at[border_summary[border_idol][1] + '位ボーダーとの時速差', '各値'] = format(int(user_average_hour) - int(border_average_hour), ',')
-
+                    st.dataframe(df2)
 
                 else:
                     st.title(f"{user_name}さんの{border_idol}ボーダーの検索履歴はありません")
